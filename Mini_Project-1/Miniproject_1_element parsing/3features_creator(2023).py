@@ -4,78 +4,78 @@ Created on Tue Apr  9 15:48:23 2024
 
 @author: Shin
 """
-# 아래 3개 정보를 교보문고 연간배스트샐러 페이지에서 뽑아 출력하기
-# 책 제목/저자/한줄평 
-#  Web-Scrapping Tools
-#   -BeautifulSoup 
-#   -selenium 
-#   -chrome webdriver 
-#   -pandas
+# Print out the three pieces of information below from the Kyobo Bookstore Annual Best Salad page.
+# Book title/author/one line review
+# Web-Scraping Tools
+# -BeautifulSoup
+# -selenium
+# -chrome webdriver
+# -pandas
 
-# 아래 코드는 top100 배스트샐러의 제목/저자/한줄평을 액셀파일로 변환추출해주는 모듈
-# 변수 line: 65(1페이지: 1~50위리스트)
-#            66(2페이지: 51~100위 리스트) 
-#            74(파일이름 변환)
+# The code below is a module that converts and extracts the title/author/one-line review of the top 100 best salads into an Excel file.
+# Variable line: 65 (Page 1: 1st to 50th place list)
+# 66 (Page 2: List of 51st to 100th)
+# 74 (file name conversion)
 
-import pandas as pd
-import time
-from selenium import webdriver
-from selenium.webdriver.chrome.options import Options
+import pandas as pd 
+import time 
+from selenium import webdriver 
+from selenium .webdriver .chrome .options import Options 
 from bs4 import BeautifulSoup 
-def web_scroll(url):
-    
-    options = Options()
-    options.headless = False  # GUI 웹 구현 
-    options.add_argument('--window-size=968,1056') # 절반크기 화면 
-    driver = webdriver.Chrome(options=options)
-    driver.get(url) 
-    time.sleep(3) # 웹 로드
-    step = 0.9 #웹 페이지의 90%만큼 이동
-    scroll = 8 # 총 8번이 스크롤 될 동안 실행
-    screen_size = driver.execute_script("return window.screen.height;") # 1056pixel
-    while scroll> 0:
-        driver.execute_script("window.scrollTo(0,{screen_height}*{step})".format(screen_height=screen_size, step=step))
-        step += 0.9
-        step+= 0.9
-        time.sleep(3) 
-        scroll -= 1
-    html_text = driver.page_source #웹페이지의 소스코드(html) python에 가져오기
-    driver.close() 
-    soup = BeautifulSoup(html_text,'lxml') # lxml 파서는 큰 html문서처리에 용이(반면에 html_parser는 간단한 문서처리에 활용)
-    return soup
-#%%
+def web_scroll (url ):
 
-# 책 품목에서 제목/작가/한줄평 추출
-def extract_product_data(soup):
-  
-    product_data = []
+    options =Options ()
+    options .headless =False # GUI web implementation
+    options .add_argument ('--window-size=968,1056')# half size screen
+    driver =webdriver .Chrome (options =options )
+    driver .get (url )
+    time .sleep (3 )# web load
+    step =0.9 # Move as much as 90% of a web page
+    scroll =8 # Executes while scrolling a total of 8 times
+    screen_size =driver .execute_script ("return window.screen.height;")# 1056 pixels
+    while scroll >0 :
+        driver .execute_script ("window.scrollTo(0,{screen_height}*{step})".format (screen_height =screen_size ,step =step ))
+        step +=0.9 
+        step +=0.9 
+        time .sleep (3 )
+        scroll -=1 
+    html_text =driver .page_source # Import web page source code (html) into python
+    driver .close ()
+    soup =BeautifulSoup (html_text ,'lxml')# The lxml parser is easy to process large HTML documents (on the other hand, html_parser is used for simple document processing).
+    return soup 
+    # %%
 
-    for product in soup.find_all(attrs = {'class':"prod_item"}):
-        name_elem = product.find('a', attrs={'class':'prod_info'})
-        author_elem = product.find("span", attrs={"class": "prod_author"})
-        shortreview_elem = product.find('span', attrs={"class":"review_quotes_text font_size_xxs"})
-        
-        if name_elem and author_elem:
-            product_data.append({
-                'Product': name_elem.text.strip(), # 책의 양쪽 공백제거(데이터의 일관성유지 및 처리과정에서 발생할 수 있는 오류 미연에 방지)
-                'Author': author_elem.text.strip(),
-                'shortreview': shortreview_elem.text.strip()
+    # Extract title/author/one-line review from book items
+def extract_product_data (soup ):
+
+    product_data =[]
+
+    for product in soup .find_all (attrs ={'class':"prod_item"}):
+        name_elem =product .find ('a',attrs ={'class':'prod_info'})
+        author_elem =product .find ("span",attrs ={"class":"prod_author"})
+        shortreview_elem =product .find ('span',attrs ={"class":"review_quotes_text font_size_xxs"})
+
+        if name_elem and author_elem :
+            product_data .append ({
+            'Product':name_elem .text .strip (),# Remove spaces on both sides of the book (maintain data consistency and prevent errors that may occur during processing)
+            'Author':author_elem .text .strip (),
+            'shortreview':shortreview_elem .text .strip ()
             })
-    
-    return pd.DataFrame(product_data)
 
-link1 = 'https://product.kyobobook.co.kr/bestseller/total?period=004#?page=1&per=50&period=004&ymw=&bsslBksClstCode=A' # Page 1
-link2 = 'https://product.kyobobook.co.kr/bestseller/total?period=004#?page=2&per=50&period=004&ymw=&bsslBksClstCode=A' # Page 2
+    return pd .DataFrame (product_data )
 
-main_soup1 = web_scroll(link1)
-df_main1 = extract_product_data(main_soup1) 
-main_soup2 = web_scroll(link2)
-df_main2 = extract_product_data(main_soup2) 
-df_features = pd.concat([df_main1, df_main2], ignore_index=True)
-#df_features  = df_main1.append(df_main2)
-import pandas as pd
-directory_loc = 'C:/Users/Shin/Documents/PPT_miniproject_신정윤'
-df_features.to_excel(directory_loc, index=False)
+link1 ='https://product.kyobobook.co.kr/bestseller/total?period=004#?page=1&per=50&period=004&ymw=&bsslBksClstCode=A'# Page 1
+link2 ='https://product.kyobobook.co.kr/bestseller/total?period=004#?page=2&per=50&period=004&ymw=&bsslBksClstCode=A'# Page 2
+
+main_soup1 =web_scroll (link1 )
+df_main1 =extract_product_data (main_soup1 )
+main_soup2 =web_scroll (link2 )
+df_main2 =extract_product_data (main_soup2 )
+df_features =pd .concat ([df_main1 ,df_main2 ],ignore_index =True )
+# df_features = df_main1.append(df_main2)
+import pandas as pd 
+directory_loc ='C:/Users/Shin/Documents/PPT_miniproject_신정윤'
+df_features .to_excel (directory_loc ,index =False )
 
 
 

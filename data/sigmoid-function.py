@@ -5,23 +5,23 @@ Created on Fri Apr  5 12:01:23 2024
 @author: Shin
 """
 
-# 시그모이드 함수(sigmoid function)
-# 0~1(0~100%) 사이의 값
-# z가 무한하게 큰 음수일 떄 0에 가까워 짐
-# z가 무한하게 큰 양수일 떄 1에 가까워 짐
-# 음성 : p가 0.5이하
-# 양성 : p가 0.5보다 크면
+# sigmoid function
+# Value between 0 and 1 (0 to 100%)
+# When z is an infinitely large negative number it approaches 0
+# When z is an infinitely large positive number, it approaches 1.
+# Voice: p is 0.5 or less
+# Positive: If p is greater than 0.5
 
 import numpy as np 
-import matplotlib.pyplot as plt 
-z= np.arange(-10, 10 ,0.1)
-p = 1 / (1 + np.exp(-z)) # 지수함수 계산(e**z / e**z + 1) # 0~1사이값으로 만들어주기 위함
+import matplotlib .pyplot as plt 
+z =np .arange (-10 ,10 ,0.1 )
+p =1 /(1 +np .exp (-z ))# Calculate exponential function (e**z / e**z + 1) # To make it a value between 0 and 1
 
-plt.plot(z, p)
-plt.xlabel('z')
-plt.ylabel('p')
-plt.show()
+plt .plot (z ,p )
+plt .xlabel ('z')
+plt .ylabel ('p')
+plt .show ()
 
-#%%
+# %%
 
 
