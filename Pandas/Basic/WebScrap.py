@@ -6,9 +6,9 @@ Created on Fri Mar 22 09:03:11 2024
 """
 
 # WebScraping
-# 웹 -> html
+# web -> html
 '''
-웹 스크래핑, 웹 하베스팅 또는 웹 데이터 추출은 웹사이트에서 데이터를 추출하는 
-데 사용되는 데이터 스크래핑이다
+Web scraping, web harvesting or web data extraction is the extraction of data from websites.
+Data scraping is used to
 '''
-# web scraping extracts underlying HTML code and, with it, data stored in a database. 
+# web scraping extracts underlying HTML code and, with it, data stored in a database.

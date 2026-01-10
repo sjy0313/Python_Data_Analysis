@@ -5,52 +5,52 @@ Created on Thu Mar 21 17:15:10 2024
 @author: Shin
 """
 
-#%%
+# %%
 """
-[문제] 아래의 데이터프레임을 이용하여 총점과 평균을 구하라.
-  1. '이름'을 인덱스로 지정
-  2. 각 학생의 총점과 평균
-  3. 각 과목별 총점과 평균
-  4. 전체를 새로운 하나의 데이터프레임으로 구성
-"""
-
-"""
-[결과] 예시, 평균(정수)
-# 과목별 총점 및 평균 #
-     수학 영어 음악 체육 총점 평균
-이름                             
-서준   90   98   85  100  373  93
-우현   80   89   95   90  354  88
-인아   70   95  100   90  355  88
-총점  240  282  280  280    0   0
-평균   80   94   93   93    0   0
+[Problem] Find the total score and average using the data frame below.
+1. Specify ‘name’ as the index
+2. Total score and average for each student
+3. Total score and average for each subject
+4. Organize the entire thing into one new data frame
 """
 
-#%%
-import pandas as pd
+"""
+[Result] Example, average (integer)
+# Total score and average for each subject #
+Math English Music Physical Education Total Score Average
+name
+Seojun 90 98 85 100 373 93
+Starboard 80 89 95 90 354 88
+Ina 70 95 100 90 355 88
+Total score 240 282 280 280 0 0
+Average 80 94 93 93 0 0
+"""
 
-# DataFrame() 함수로 데이터프레임 변환. 변수 df에 저장 
-exam_data = {'이름' : ['서준', '우현', '인아'],
-             '수학' : [ 90, 80, 70],
-             '영어' : [ 98, 89, 95],
-             '음악' : [ 85, 95, 100],
-             '체육' : [ 100, 90, 90]}
-df = pd.DataFrame(exam_data)
+# %%
+import pandas as pd 
 
-print(df)
+# Convert a data frame with the DataFrame() function.Save to variable df
+exam_data ={'이름':['서준','우현','인아'],
+'수학':[90 ,80 ,70 ],
+'영어':[98 ,89 ,95 ],
+'음악':[85 ,95 ,100 ],
+'체육':[100 ,90 ,90 ]}
+df =pd .DataFrame (exam_data )
 
-print(df, sep='\n')
+print (df )
+
+print (df ,sep ='\n')
 
 # print('\n')
 '''
-다음 줄로 이동하며 개행이라고도 부릅니다.
-print('\n')은 빈 줄을 출력하는 것입니다. 여기서 \n은 줄 바꿈 문자를 나타냅니다.
-따라서 print('\n')은 새로운 줄에 아무것도 없이 커서만 이동하여 빈 줄을 출력합니다.
-이를 통해 출력 결과를 보기 좋게 정리할 수 있습니다.
- #
-여러개의 출력 결과를 한줄로 나타내고 싶을 떄
-print(1, end=' ')    # end에 공백 한 칸 지정
+Moves to the next line, also called newline.
+print('\n') prints a blank line.where \n represents the newline character.
+Therefore, print('\n') only moves the cursor and prints a blank line, with nothing on the new line.
+This allows you to organize the output results nicely.
+#
+When you want to display multiple output results in one line
+print(1, end=' ') # Specify a space at end
 print(2, end=' ')
-print(3) 
+print(3)
 # 1 2 3
 '''

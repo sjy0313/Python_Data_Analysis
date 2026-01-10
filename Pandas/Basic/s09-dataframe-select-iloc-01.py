@@ -5,132 +5,132 @@ Created on Wed Mar 20 15:11:09 2024
 @author: Shin
 """
 
-# 데이터프레임 : Dataframe
+# Data frame: Dataframe
 
-import pandas as pd
+import pandas as pd 
 # list
-data = [
-    # 0    1       2
-    [14, '남', '수성중'],
-    [15, '남', '장안중'], # 0행
-    [16, '여', '수성중'],  # 1행 # ,를 꼭 붙여 정수/슬라이스여야함으로 튜플이 아니라
-    [17, '여', '수원대']  # 2행   
+data =[
+# 0 1 2
+[14 ,'남','수성중'],
+[15 ,'남','장안중'],# Line 0
+[16 ,'여','수성중'],# Line 1 must be appended with #, so it must be an integer/slice, not a tuple.
+[17 ,'여','수원대']# Line 2
 
-        ]
+]
 
-df = pd.DataFrame(data, index=['길동', '정윤', '희애', '유라'],
-                  columns=['나이','성별', '학교'])
-print(df)
+df =pd .DataFrame (data ,index =['길동','정윤','희애','유라'],
+columns =['나이','성별','학교'])
+print (df )
 '''
-    나이 성별   학교
-길동  14  남  수성중
-정윤  15  남  장안중
-희애  16  여  수성중
-유라  17  여  수원대
+Age Gender School
+Gil-dong 14 South Suseong Middle School
+Jeongyoon 15 years old Jangan Middle School
+Heeae 16 years old, Suseong Middle School
+Yura 17 Female Suwon University
 '''
-#%%
-# 단일행 선택
-# iloc : 인덱스 선택
-# 결과 : Series
-ndf = df.iloc[1]
-print(ndf) # Series
+# %%
+# Select single row
+# iloc: index selection
+# Result: Series
+ndf =df .iloc [1 ]
+print (ndf )# Series
 '''
-나이     15
-성별      남
-학교    장안중
-Name: 정윤, dtype: object
+age 15
+gender guy
+School Jangan Middle School
+Name: Jeongyun, dtype: object
 '''
-#%%
-# 단일행 선택
-# loc : 인덱스 선택
-# 결과 : DataFrame
-df2 = df.iloc[[2]]
-print(df2) # DataFrame
+# %%
+# Select single row
+# loc: index selection
+# Result: DataFrame
+df2 =df .iloc [[2 ]]
+print (df2 )# DataFrame
 '''
-      나이 성별   학교
-  희애  16  여  수성중
+Age Gender School
+Heeae 16 years old, Suseong Middle School
 '''
-#%%
-# 다중행 선택
-# iloc : 슬라이싱(범위지정)
-# 슬라이싱: 시작번호:끝번호(n-1까지 지정된다)
-# 결과: Dataframe
-df3 = df.iloc[1:3]
-print(df3) # Dataframe
+# %%
+# Multiple row selection
+# iloc: slicing (range designation)
+# Slicing: Start number: End number (specified up to n-1)
+# Result: Dataframe
+df3 =df .iloc [1 :3 ]
+print (df3 )# Dataframe
 '''
-      나이 성별   학교
-  정윤  15  남  장안중
-  희애  16  여  수성중
+Age Gender School
+Jeongyoon 15 years old Jangan Middle School
+Heeae 16 years old, Suseong Middle School
 '''
-#%%
-# 다중행 선택 
-# iloc : 멀티 인덱스 지정
-# 결과: Dataframe 지정된 순서로 추출
-df4 = df.iloc[[1,2,0]]
-print(df4) # Dataframe
+# %%
+# Multiple row selection
+# iloc: Multi-index designation
+# Result: Dataframe extracted in specified order
+df4 =df .iloc [[1 ,2 ,0 ]]
+print (df4 )# Dataframe
 '''
-       나이 성별   학교
-   정윤  15  남  장안중
-   희애  16  여  수성중
-   길동  14  남  수성중
+Age Gender School
+Jeongyoon 15 years old Jangan Middle School
+Heeae 16 years old, Suseong Middle School
+Gil-dong 14 South Suseong Middle School
 '''
-# 결국 loc와 iloc의 차이는 인덱스로 지정하느냐 순번에 따라 지정하느냐의 차이다.
+# Ultimately, the difference between loc and iloc is whether they are specified by index or by sequence.
 
-#%%
-# 순서와 칼럼을 동시에 지정 (슬라이싱과 인덱싱 둘다사용)
-# 전체행을 선택, 칼럼은 '성별, '학교' 선택
-# 행의 범위와 열의 범위를 동시에 지정
-df5 = df.loc[:,['성별', '학교']] # loc활용 :는 행의 범위
-df5 = df.iloc[:,1:3] # iloc활용
-print(df5)
+# %%
+# Specify order and column simultaneously (using both slicing and indexing)
+# Select the entire row, select 'Gender' and 'School' for the columns.
+# Specify the row range and column range at the same time
+df5 =df .loc [:,['성별','학교']]# loc활용 :는 행의 범위
+df5 =df .iloc [:,1 :3 ]# Utilizing iloc
+print (df5 )
 '''
-    성별   학교
-길동  남  수성중
-정윤  남  장안중
-희애  여  수성중
-유라  여  수원대
+gender school
+Gildong Nam Suseong Middle School
+Jeong Yun Nam Jangan Middle School
+Heeae Yeo Suseong Middle School
+Yura Female Suwon University
 '''
-#%%
+# %%
 
-df6 = df.loc['정윤' :'유라',['성별', '학교']]
-print(df6)
+df6 =df .loc ['정윤':'유라',['성별','학교']]
+print (df6 )
 '''
-   성별   학교
-정윤  남  장안중
-희애  여  수성중
-유라  여  수원대
+gender school
+Jeong Yun Nam Jangan Middle School
+Heeae Yeo Suseong Middle School
+Yura Female Suwon University
 '''
-#%%
-# 행: 1부터 마지막 -1 
-# 열: 1부터 마지막
-df6 = df.iloc[1:-1,1:] # iloc활용 end-1 이므로 유라 앞에 희애까지 지정
-print(df6)
+# %%
+# Rows: 1 to last -1
+# Columns: 1 to last
+df6 =df .iloc [1 :-1 ,1 :]# Since iloc is used as end-1, Hee-ae is designated in front of Yura.
+print (df6 )
 '''
-    성별   학교
-정윤  남  장안중
-희애  여  수성중
+gender school
+Jeong Yun Nam Jangan Middle School
+Heeae Yeo Suseong Middle School
 '''
 
-#%%
-df7 = df.iloc[:,:] # iloc활용
-print(df7)
+# %%
+df7 =df .iloc [:,:]# Utilizing iloc
+print (df7 )
 '''
-     성별   학교
-길동  남  수성중
-정윤  남  장안중
-희애  여  수성중
-유라  여  수원대
+gender school
+Gildong Nam Suseong Middle School
+Jeong Yun Nam Jangan Middle School
+Heeae Yeo Suseong Middle School
+Yura Female Suwon University
 '''
-#%%
-# 전체
-df8 = df.loc[:,'나이':'학교'] 
-print(df8)
+# %%
+# entire
+df8 =df .loc [:,'나이':'학교']
+print (df8 )
 '''
-    나이 성별   학교
-길동  14  남  수성중
-정윤  15  남  장안중
-희애  16  여  수성중
-유라  17  여  수원대
+Age Gender School
+Gil-dong 14 South Suseong Middle School
+Jeongyoon 15 years old Jangan Middle School
+Heeae 16 years old, Suseong Middle School
+Yura 17 Female Suwon University
 '''
 
 

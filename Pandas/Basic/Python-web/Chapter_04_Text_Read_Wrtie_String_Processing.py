@@ -1,330 +1,330 @@
-#!/usr/bin/env python
+# !/usr/bin/env python
 # coding: utf-8
 
-# # 4장 파일 읽고 쓰기와 문자열 처리
+# # Chapter 4 Reading and writing files and string processing
 
-# ## 4.1 파일 읽고 쓰기
+# ## 4.1 Reading and writing files
 
-# ### 4.1.1 파일 읽고 쓰기 위한 기본 구조
+# ### 4.1.1 Basic structure for reading and writing files
 
-# ### 4.1.2 파일 읽기
+# ### 4.1.2 Reading files
 
-# [4장: 130페이지]
-
-# In[ ]:
-
-
-get_ipython().run_cell_magic('writefile', 'C:\\myPyScraping\\data\\ch04\\read_test.txt', 'All grown-up\nwere once children,\nalthough few of them\nremember it.\n')
-
-
-# [4장: 131페이지]
+# [Chapter 4: Page 130]
 
 # In[ ]:
 
 
-f = open('C:/myPyScraping/data/ch04/read_test.txt', 'r') # 파일 열기(읽기 모드)
-data = f.read() # 파일의 내용 전체를 읽어서 변수에 할당
-f.close()       # 파일 닫기
+get_ipython ().run_cell_magic ('writefile','C:\\myPyScraping\\data\\ch04\\read_test.txt','All grown-up\nwere once children,\nalthough few of them\nremember it.\n')
 
-print(data)     # 읽어온 파일 내용 출력
+
+# [Chapter 4: Page 131]
+
+# In[ ]:
+
+
+f =open ('C:/myPyScraping/data/ch04/read_test.txt','r')# Open file (read mode)
+data =f .read ()# Read the entire contents of the file and assign it to a variable
+f .close ()# Close file
+
+print (data )# Print the contents of the read file
 
 
 # In[ ]:
 
 
-# cp949로 인코딩된 한글 텍스트 파일 읽기 
-file_name='C:/myPyScraping/data/ch04/헌법_cp949.txt' # 파일 경로를 변수에 할당
+# Reading Korean text files encoded with cp949
+file_name ='C:/myPyScraping/data/ch04/헌법_cp949.txt'# Assign file path to variable
 
-f = open(file_name, 'r', encoding='cp949') # 파일 열기(읽기 모드)
+f =open (file_name ,'r',encoding ='cp949')# Open file (read mode)
 # f = open(file_name)
-data = f.read() # 파일의 내용 전체를 읽어서 변수에 할당
-f.close()       # 파일 닫기
+data =f .read ()# Read the entire contents of the file and assign it to a variable
+f .close ()# Close file
 
-print(data)     # 읽어온 파일 내용 출력
-
-
-# [4장: 132페이지]
-
-# In[ ]:
+print (data )# Print the contents of the read file
 
 
-# utf-8로 인코딩된 한글 텍스트 파일 읽기 
-file_name = 'C:/myPyScraping/data/ch04/헌법_utf8.txt' # 파일 경로를 변수에 할당
-
-f = open(file_name, 'r', encoding='utf-8') # 파일 열기(읽기 모드)
-data = f.read() # 파일의 내용 전체를 읽어서 변수에 할당
-f.close()       # 파일 닫기
-
-print(data)     # 읽어온 파일 내용 출력
-
-
-# ### 4.1.3 파일을 한 줄씩 읽어 처리하기
-
-# #### 한 줄씩 읽어오기: `readline()`
-
-# [4장: 133페이지]
+# [Chapter 4: Page 132]
 
 # In[ ]:
 
 
-file_name = 'C:/myPyScraping/data/ch04/read_test.txt' # 파일 경로를 변수에 할당
+# Reading Korean text files encoded in UTF-8
+file_name ='C:/myPyScraping/data/ch04/헌법_utf8.txt'# Assign file path to variable
 
-f = open(file_name, 'r') # 파일 열기(읽기 모드)
+f =open (file_name ,'r',encoding ='utf-8')# Open file (read mode)
+data =f .read ()# Read the entire contents of the file and assign it to a variable
+f .close ()# Close file
 
-line1 = f.readline() # 파일의 내용을 한 줄씩 읽어서 변수에 할당
-line2 = f.readline() # 파일의 내용을 한 줄씩 읽어서 변수에 할당
-f.close()  # 파일 닫기
-
-print(line1, end='') # print 자체의 개행문자는 출력하지 않고 내용 출력
-print(line2, end='')
+print (data )# Print the contents of the read file
 
 
-# In[ ]:
+# ### 4.1.3 Reading and processing a file line by line
 
+# #### Read line by line: `readline()`
 
-file_name = 'C:/myPyScraping/data/ch04/read_test.txt' # 파일 경로를 변수에 할당
-
-f = open(file_name, 'r')  # 파일 열기(읽기 모드)
-line_num = 0 # 줄 수 표시를 위한 변수 초기화
-
-while True:              
-    line = f.readline()      # 파일의 내용을 한 줄씩 읽어서 변수에 할당
-    if (line == ''):         # line이 빈 문자열인지 검사 
-        break                # 빈 문자열이면 while문을 빠져나감
-    line_num = line_num + 1  # line_num 을 1씩 증가 
-    print("{0}: {1}".format(line_num, line), end='') # 줄 수와 읽은 문자열 출력
-    
-f.close() # 파일 닫기
-
-
-# #### 한 줄씩을 요소로 갖는 리스트로 읽어오기:  `readlines()`
-
-# [4장: 134페이지]
+# [Chapter 4: Page 133]
 
 # In[ ]:
 
 
-file_name = 'C:/myPyScraping/data/ch04/read_test.txt' # 파일 경로를 변수에 할당
+file_name ='C:/myPyScraping/data/ch04/read_test.txt'# Assign file path to variable
 
-f = open(file_name, 'r') # 파일 열기(읽기 모드)
-lines = f.readlines()    # 파일 전체의 내용을 읽어서 변수에 할당
-f.close()                # 파일 닫기
+f =open (file_name ,'r')# Open file (read mode)
 
-print(lines)
+line1 =f .readline ()# Read the contents of the file line by line and assign it to a variable
+line2 =f .readline ()# Read the contents of the file line by line and assign it to a variable
+f .close ()# Close file
+
+print (line1 ,end ='')# Prints the content without printing the newline character of print itself.
+print (line2 ,end ='')
 
 
 # In[ ]:
 
 
-file_name = 'C:/myPyScraping/data/ch04/read_test.txt' # 파일 경로를 변수에 할당
+file_name ='C:/myPyScraping/data/ch04/read_test.txt'# Assign file path to variable
 
-f = open(file_name, 'r') # 파일 열기(읽기 모드)
-lines = f.readlines()    # 파일 전체의 내용을 읽어서 변수에 할당
-f.close() # 파일 닫기
+f =open (file_name ,'r')# Open file (read mode)
+line_num =0 # Initializing variable to display number of lines
 
-line_num = 0 # 줄 수 표시를 위한 변수 초기화
-for line in lines:
-    line_num = line_num + 1  # line_num 을 1씩 증가 
-    print("{0}: {1}".format(line_num, line), end='') # 줄 수와 읽은 문자열 출력
+while True :
+    line =f .readline ()# Read the contents of the file line by line and assign it to a variable
+    if (line ==''):# Check if line is an empty string
+        break # If the string is empty, exit the while statement.
+    line_num =line_num +1 # Increase line_num by 1
+    print ("{0}: {1}".format (line_num ,line ),end ='')# Number of lines and output string read
 
-
-# ### 4.1.4 파일 쓰기
-
-# [4장: 135페이지]
-
-# In[ ]:
+f .close ()# Close file
 
 
-file_name = 'C:/myPyScraping/data/ch04/write_test.txt' # 파일 경로를 변수에 할당
+# #### Reading a list with each line as an element: `readlines()`
 
-f = open(file_name, 'w') # 파일 열기(쓰기 모드)
-f.write("Python is powerful... and fast;\n") # 문자열을 파일에 쓰기
-f.write("plays well with others;\n")
-f.write("runs everywhere;\n")
-f.write("is friendly & easy to learn;\n")
-f.write("is Open.\n")
-f.close() # 파일 닫기
-
-print("생성한 파일:", file_name) # 생성한 파일 이름 출력
-
-
-# [4장: 136페이지]
+# [Chapter 4: Page 134]
 
 # In[ ]:
 
 
-get_ipython().system('type C:\\myPyScraping\\data\\ch04\\write_test.txt')
+file_name ='C:/myPyScraping/data/ch04/read_test.txt'# Assign file path to variable
+
+f =open (file_name ,'r')# Open file (read mode)
+lines =f .readlines ()# Read the contents of the entire file and assign it to a variable
+f .close ()# Close file
+
+print (lines )
 
 
 # In[ ]:
 
 
-file_name = 'C:/myPyScraping/data/ch04/two_times.txt' # 파일 경로를 변수에 할당
+file_name ='C:/myPyScraping/data/ch04/read_test.txt'# Assign file path to variable
 
-f = open(file_name, 'w') # 파일 열기(쓰기 모드)
-f.write("[구구단 2단의 일부]\n")
-for num in range(1, 6): # for문: num이 1~5까지 반복
-    format_string = "2 x {0} = {1}\n".format(num, 2 * num) # 저장할 문자열 생성
-    f.write(format_string) # 파일에 문자열 쓰기
-f.close() # 파일 닫기
+f =open (file_name ,'r')# Open file (read mode)
+lines =f .readlines ()# Read the contents of the entire file and assign it to a variable
+f .close ()# Close file
 
-print("생성한 파일:", file_name) # 생성한 파일 이름 출력
+line_num =0 # Initializing variable to display number of lines
+for line in lines :
+    line_num =line_num +1 # Increase line_num by 1
+    print ("{0}: {1}".format (line_num ,line ),end ='')# Number of lines and output string read
+
+
+    # ### 4.1.4 Writing files
+
+    # [Chapter 4: Page 135]
+
+    # In[ ]:
+
+
+file_name ='C:/myPyScraping/data/ch04/write_test.txt'# Assign file path to variable
+
+f =open (file_name ,'w')# Open file (write mode)
+f .write ("Python is powerful... and fast;\n")# write string to file
+f .write ("plays well with others;\n")
+f .write ("runs everywhere;\n")
+f .write ("is friendly & easy to learn;\n")
+f .write ("is Open.\n")
+f .close ()# Close file
+
+print ("생성한 파일:",file_name )# Print the created file name
+
+
+# [Chapter 4: Page 136]
+
+# In[ ]:
+
+
+get_ipython ().system ('type C:\\myPyScraping\\data\\ch04\\write_test.txt')
 
 
 # In[ ]:
 
 
-get_ipython().system('type C:\\myPyScraping\\data\\ch04\\two_times.txt')
+file_name ='C:/myPyScraping/data/ch04/two_times.txt'# Assign file path to variable
 
+f =open (file_name ,'w')# Open file (write mode)
+f .write ("[구구단 2단의 일부]\n")
+for num in range (1 ,6 ):# for statement: num repeats from 1 to 5
+    format_string ="2 x {0} = {1}\n".format (num ,2 *num )# Create a string to save
+    f .write (format_string )# write string to file
+f .close ()# Close file
 
-# ### 4.1.5 with 문으로 파일 읽고 쓰기 
-
-# [4장: 137페이지]
-
-# In[ ]:
-
-
-file_name = 'C:/myPyScraping/data/ch04/three_times.txt' # 파일 경로를 변수에 할당
-
-with open(file_name, 'w') as f:       # 파일 열기(쓰기 모드)
-    f.write("[구구단 3단의 일부]\n")   
-    for num in range(1, 6):            # for문: num이 1~5까지 반복
-        format_string = "3 x {0} = {1}\n".format(num, 3 * num) # 저장할 문자열 생성
-        f.write(format_string)        # 파일에 문자열 쓰기
+print ("생성한 파일:",file_name )# Print the created file name
 
 
 # In[ ]:
 
 
-with open(file_name, 'r') as f:  # 파일 열기(읽기 모드)
-    data = f.read()               # 파일에서 문자열 읽기
-    print(data)
+get_ipython ().system ('type C:\\myPyScraping\\data\\ch04\\two_times.txt')
 
 
-# ## 4.2 문자열 처리
+# ### 4.1.5 Reading and writing files with the with statement
 
-# ### 4.2.1 문자열 분리하기: `split()`
-
-# [4장: 138페이지]
+# [Chapter 4: Page 137]
 
 # In[ ]:
 
 
-"에스프레소,아메리카노,카페라테,카푸치노".split(',')
+file_name ='C:/myPyScraping/data/ch04/three_times.txt'# Assign file path to variable
+
+with open (file_name ,'w')as f :# Open file (write mode)
+    f .write ("[구구단 3단의 일부]\n")
+    for num in range (1 ,6 ):# for statement: num repeats from 1 to 5
+        format_string ="3 x {0} = {1}\n".format (num ,3 *num )# Create a string to save
+        f .write (format_string )# write string to file
 
 
-# In[ ]:
+        # In[ ]:
 
 
-"  에스프레소 아메리카노   카페라테      카푸치노\n".split()
+with open (file_name ,'r')as f :# Open file (read mode)
+    data =f .read ()# Read string from file
+    print (data )
 
 
-# ### 4.2.2 불필요한 문자열 삭제하기: `strip()`
+    # ## 4.2 String processing
 
-# [4장: 139페이지]
+    # ### 4.2.1 Splitting a string: `split()`
 
-# In[ ]:
+    # [Chapter 4: Page 138]
 
-
-"aaaaPythonaaa".strip('a')
-
-
-# In[ ]:
+    # In[ ]:
 
 
-"\n  Python  \n\n".strip()
-
-
-# ### 4.2.3 문자열 연결하기: `join()`
-
-# [4장: 140페이지]
-
-# In[ ]:
-
-
-" ".join(["서울시","서초구","반포대로","201(반포동)"])
+"에스프레소,아메리카노,카페라테,카푸치노".split (',')
 
 
 # In[ ]:
 
 
-"****".join(["서울시","서초구","반포대로","201(반포동)"])
+"  에스프레소 아메리카노   카페라테      카푸치노\n".split ()
+
+
+# ### 4.2.2 Removing unnecessary strings: `strip()`
+
+# [Chapter 4: Page 139]
+
+# In[ ]:
+
+
+"aaaaPythonaaa".strip ('a')
 
 
 # In[ ]:
 
 
-joined_str = "\n".join(["서울시","서초구","반포대로","201(반포동)"])
-joined_str
+"\n  Python  \n\n".strip ()
+
+
+# ### 4.2.3 Concatenating strings: `join()`
+
+# [Chapter 4: Page 140]
+
+# In[ ]:
+
+
+" ".join (["서울시","서초구","반포대로","201(반포동)"])
 
 
 # In[ ]:
 
 
-print(joined_str)
+"****".join (["서울시","서초구","반포대로","201(반포동)"])
 
-
-# ### 4.2.4 문자열 찾기: `find()`, `count()`, `startswith()`, `endswith()`
-
-# [4장: 141페이지]
 
 # In[ ]:
 
 
-str_p = "Python is powerful. Python is easy."
+joined_str ="\n".join (["서울시","서초구","반포대로","201(반포동)"])
+joined_str 
 
-print(str_p.find("Python"))         # 전체 범위
-print(str_p.find("Python", 10, 30)) # 시작과 끝 범위 지정
-print(str_p.find("easy"))           # 전체 범위
-print(str_p.find("Python", 21))     # 시작 범위 지정. 일치하는 문자열 없음
-print(str_p.find("Jupyter"))        # 전체 범위. 일치하는 문자열 없음
-
-
-# [4장: 142페이지]
 
 # In[ ]:
 
 
-print(str_p.count("Python"))         # 전체 범위
-print(str_p.count("Python", 10, 30)) # 시작과 끝 범위 지정
-print(str_p.count("easy"))           # 전체 범위
-print(str_p.count("Python", 21))     # 시작 범위 지정. 일치하는 문자열 없음
-print(str_p.count("Jupyter"))        # 전체 범위. 일치하는 문자열 없음
+print (joined_str )
 
 
-# [4장: 143페이지]
+# ### 4.2.4 Finding strings: `find()`, `count()`, `startswith()`, `endswith()`
+
+# [Chapter 4: Page 141]
 
 # In[ ]:
 
 
-print("- 문자열이 'Python'으로 시작?", str_p.startswith("Python"))
-print("- 문자열이 'powerful'로 시작?", str_p.startswith("powerful"))
-print("- 지정 범위에서 'powerful'로 시작?", str_p.startswith("powerful",10))
-print("- 문자열이 'easy.'으로 끝?", str_p.endswith("easy."))
+str_p ="Python is powerful. Python is easy."
+
+print (str_p .find ("Python"))# full range
+print (str_p .find ("Python",10 ,30 ))# Specify start and end range
+print (str_p .find ("easy"))# full range
+print (str_p .find ("Python",21 ))# Specify starting range.No string matches
+print (str_p .find ("Jupyter"))# Full range.No string matches
 
 
-# ### 4.2.5 문자열 바꾸기: `replace()`
-
-# [4장: 143페이지]
-
-# In[ ]:
-
-
-str_o = "Python is powerful. Python is easy. Python is open."
-print(str_o.replace("Python", "IPython"))    # 전체 범위
-print(str_o.replace("Python", "IPython", 2)) # 횟수 지정
-
-
-# ### 4.2.6 대소문자 변경하기: `lower()`, `upper()`
-
-# [4장: 144페이지]
+# [Chapter 4: Page 142]
 
 # In[ ]:
 
 
-str_lu = "Python is powerful. PYTHON IS EASY."
-print(str_lu.lower()) # 문자열을 모두 소문자로 바꾸기
-print(str_lu.upper()) # 문자열을 모두 대문자로 바꾸기
+print (str_p .count ("Python"))# full range
+print (str_p .count ("Python",10 ,30 ))# Specify start and end range
+print (str_p .count ("easy"))# full range
+print (str_p .count ("Python",21 ))# Specify starting range.No string matches
+print (str_p .count ("Jupyter"))# Full range.No string matches
 
 
-# ## 4.3 정리
+# [Chapter 4: Page 143]
+
+# In[ ]:
+
+
+print ("- 문자열이 'Python'으로 시작?",str_p .startswith ("Python"))
+print ("- 문자열이 'powerful'로 시작?",str_p .startswith ("powerful"))
+print ("- 지정 범위에서 'powerful'로 시작?",str_p .startswith ("powerful",10 ))
+print ("- 문자열이 'easy.'으로 끝?",str_p .endswith ("easy."))
+
+
+# ### 4.2.5 String replacement: `replace()`
+
+# [Chapter 4: Page 143]
+
+# In[ ]:
+
+
+str_o ="Python is powerful. Python is easy. Python is open."
+print (str_o .replace ("Python","IPython"))# full range
+print (str_o .replace ("Python","IPython",2 ))# Specify number of times
+
+
+# ### 4.2.6 Changing case: `lower()`, `upper()`
+
+# [Chapter 4: Page 144]
+
+# In[ ]:
+
+
+str_lu ="Python is powerful. PYTHON IS EASY."
+print (str_lu .lower ())# Convert a string to all lowercase
+print (str_lu .upper ())# Convert a string to all uppercase letters
+
+
+# ## 4.3 Summary
